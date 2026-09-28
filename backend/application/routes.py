@@ -21,7 +21,7 @@ def role_required(required_role):
 def index():
     return jsonify(message="Welcome to the Flask API!"), 200
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -37,7 +37,7 @@ def login():
     else:
         abort(401, description="Invalid username or password")
 
-@app.route('/register', methods=['POST'])
+@app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
     username = data.get('username')
