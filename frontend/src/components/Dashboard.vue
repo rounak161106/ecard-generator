@@ -7,14 +7,12 @@
                 <thead>
                     <tr>
                         <th>Card Name</th>
-                        <th>key</th>
                         <th colspan="2">Action </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="card in userData.card_requests">
                         <td>{{ card.cardname }}</td>
-                        <td>{{ }}</td>
                         <td>View</td>
                         <td>Delete</td>
                     </tr>
@@ -72,3 +70,9 @@
         }
     }
 </script>
+
+<style scoped>
+    table{
+        width : 80%;
+    }
+</style>
