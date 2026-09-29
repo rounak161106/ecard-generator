@@ -1,13 +1,28 @@
 <template>
     <div v-if="token">
         <div v-if="role=='user'">
-            <p>Welcome {{ userData.username }} !!</p>
+            <h2>Welcome {{ userData.username }} !!</h2>
+            <h3>Your cards</h3>
+            <table border="" cellpadding="5px">
+                <thead>
+                    <tr>
+                        <th>Card Name</th>
+                        <th>key</th>
+                        <th colspan="2">Action </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="card in userData.card_requests">
+                        <td>{{ card.cardname }}</td>
+                        <td>{{ }}</td>
+                        <td>View</td>
+                        <td>Delete</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div v-else>
             <h2>Welcome {{ userData.admin_name }} !!</h2>
-            <table border="2">
-                <th></th>
-            </table>
         </div>
     </div>
 </template>
@@ -44,9 +59,11 @@
                         }
                     }) 
                     if(resp.status==200){
-                    console.log(resp)
                     this.userData = resp.data
                     this.role = resp.data.role
+                    console.log(this.userData)
+                    console.log(resp)
+                    console.log(this.userData.card_request_details)
                     }  
                 }catch(error){
                     console.log(error)

@@ -7,7 +7,6 @@ export default{
                 username : "", 
                 password : ""
             },
-            token : "",
             error : false
         }
     },
@@ -20,16 +19,11 @@ export default{
             }) 
             if(resp.status==200){
               this.error=false
-              localStorage.setItem("token" , resp.data.access_token)
-              this.token = resp.data.access_token
+              await this.$store.dispatch('setToken', resp.data.access_token)
               this.$router.push('/dashboard')
-              console.log("added")
-              console.log(this.error)
             }  
           }catch(error){
               this.error = true
-              console.log("Invalid Credentials")
-              console.log(this.error)
         }
       }
   }
@@ -68,7 +62,10 @@ export default{
       <button type="submit">Login</button>
 
       <div class="form-group">
-        <p style="text-align : center">Are you a new user? <a href="#">Register</a> </p>
+        <p style="text-align : center">
+          Already have an account?
+          <router-link to="/register">Register</router-link>
+        </p>
       </div>
 
     </form>

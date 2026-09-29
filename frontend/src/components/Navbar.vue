@@ -8,8 +8,8 @@
       <router-link to="/login">Login</router-link>
       <router-link to="/register">Register</router-link>
     </div>
-    <div @click="logout" v-else>
-      <button>Logout</button>
+    <div v-else>
+      <button @click="logout">Logout</button>
     </div>
   </nav>
 </template>
@@ -54,17 +54,14 @@
 
 <script>
     export default {
-        data(){
-            return {
-                token : "",
-            }
+        computed: {
+          token() {
+            return this.$store.state.token
+          }
         },
-        mounted : function(){
-            this.token = localStorage.getItem("token")
-        },
-        methods : {
-          logout(){
-            localStorage.removeItem('token');
+        methods: {
+          async logout() {
+          await this.$store.dispatch('logout')
             this.$router.push('/login')
           }
         }
