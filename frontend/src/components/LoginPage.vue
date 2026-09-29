@@ -22,6 +22,7 @@ export default{
               this.error=false
               localStorage.setItem("token" , resp.data.access_token)
               this.token = resp.data.access_token
+              this.$router.push('/dashboard')
               console.log("added")
               console.log(this.error)
             }  
@@ -37,7 +38,7 @@ export default{
 
 <template>
   <div class="login-container">
-    <form class="login-form" @submit.prevent="login">
+    <form class="login-form" @submit.prevent="loginUser">
       <h2>Login</h2>
 
       <div class="form-group">
@@ -64,7 +65,7 @@ export default{
 
       <p v-if="error" id="error">Invalid Credentials</p>
 
-      <button @click="loginUser" type="submit">Login</button>
+      <button type="submit">Login</button>
 
       <div class="form-group">
         <p style="text-align : center">Are you a new user? <a href="#">Register</a> </p>

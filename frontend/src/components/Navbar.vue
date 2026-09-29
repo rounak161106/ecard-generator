@@ -3,6 +3,14 @@
     <div class="logo">
       E-Card Generator
     </div>
+
+    <div class="nav-links" v-if="!token">
+      <router-link to="/login">Login</router-link>
+      <router-link to="/register">Register</router-link>
+    </div>
+    <div @click="logout" v-else>
+      <button>Logout</button>
+    </div>
   </nav>
 </template>
 
@@ -25,4 +33,40 @@
   font-weight: 600;
   color: #42b883;
 }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #42b883;
+}
 </style>
+
+<script>
+    export default {
+        data(){
+            return {
+                token : "",
+            }
+        },
+        mounted : function(){
+            this.token = localStorage.getItem("token")
+        },
+        methods : {
+          logout(){
+            localStorage.removeItem('token');
+            this.$router.push('/login')
+          }
+        }
+    }
+</script>
