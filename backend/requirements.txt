@@ -2,6 +2,8 @@ amqp==5.4.0
 billiard==4.3.0
 blinker==1.9.0
 celery==5.6.3
+certifi==2026.7.22
+charset-normalizer==3.5.2
 click==8.5.0
 click-didyoumean==0.3.1
 click-plugins==1.1.1.2
@@ -11,6 +13,7 @@ flask-cors==6.0.5
 Flask-JWT-Extended==4.7.4
 Flask-SQLAlchemy==3.1.1
 greenlet==3.5.6
+idna==3.20
 itsdangerous==2.2.0
 Jinja2==3.1.6
 kombu==5.6.2
@@ -20,11 +23,13 @@ prompt_toolkit==3.0.53
 PyJWT==2.14.0
 python-dateutil==2.9.0.post0
 redis==6.4.0
+requests==2.34.2
 six==1.17.0
 SQLAlchemy==2.0.54
 typing_extensions==4.16.0
 tzdata==2026.4
 tzlocal==5.4.4
+urllib3==2.8.0
 vine==5.1.0
 wcwidth==0.9.1
 Werkzeug==3.1.8

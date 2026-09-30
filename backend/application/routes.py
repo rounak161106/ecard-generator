@@ -4,6 +4,9 @@ from application.database import db
 from flask_jwt_extended import create_access_token, jwt_required, current_user
 from functools import wraps
 import random, string
+from flask import send_from_directory
+from celery.result import AsyncResult
+from .tasks import csv_report, monthly_report, generate_msg
 
 # role required decorator
 def role_required(required_role):
@@ -204,7 +207,7 @@ def generate(cardname, user_id):
     info1 = UserCardDetail(attr_name="key",attr_val=key,cardname=cardname,user_id=user_id)
     db.session.add(info1)
     db.session.commit()
-    # res = generate_msg.delay(detail.bearer.username, cardname)
+    res = generate_msg.delay(detail.bearer.username, cardname)
     return {
         "message": f"{cardname} card created for user: {user_id}",
         "key": key
@@ -233,3 +236,27 @@ def view_card(cardname):
         detail_dict["attr_val"] = detail.attr_val
         details_json.append(detail_dict)
     return jsonify(details_json)
+
+# backend jobs trigger
+@app.route('/export_csv')
+def export():
+    result = csv_report.delay()
+    return {
+        "id": result.id,
+        # "result": result.result
+    }
+
+@app.route('/api/csv_result/<id>') # just create to test the status of result
+def csv_result(id):
+    res = AsyncResult(id)
+    # return {
+    #     "filename": res.result
+    # }
+    return send_from_directory('static', res.result)
+
+# @app.route('/api/send_mail')
+# def send_mail():
+#     res = monthly_report.delay()
+#     return {
+#         "message": res.result
+#     }
