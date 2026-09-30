@@ -1,3 +1,11 @@
+import werkzeug
+if not hasattr(werkzeug, '__version__'):
+    import importlib.metadata
+    try:
+        werkzeug.__version__ = importlib.metadata.version('werkzeug')
+    except Exception:
+        werkzeug.__version__ = '3.1.8'
+
 from flask import Flask
 from application.config import DevelopmentConfig
 from application.database import db
@@ -6,6 +14,7 @@ from application.security import jwt
 from flask_cors import CORS
 from application.celery_init import celery_init_app
 from celery.schedules import crontab
+from application.tasks import monthly_report
 
 app = None
 def create_app():

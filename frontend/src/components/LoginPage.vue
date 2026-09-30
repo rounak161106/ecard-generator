@@ -19,7 +19,11 @@ export default{
             }) 
             if(resp.status==200){
               this.error=false
-              await this.$store.dispatch('setToken', resp.data.access_token)
+              await this.$store.dispatch('setAuth', {
+                token: resp.data.access_token,
+                role: resp.data.role,
+                username: resp.data.username
+              })
               this.$router.push('/dashboard')
             }  
           }catch(error){
